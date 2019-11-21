@@ -16,13 +16,13 @@ import os
 
 #TODO : can add dropout in the lstm
 class Lstm(nn.Module):
-    def __init__(self, input_dim, num_neurons, num_layers, hidden):
+    def __init__(self, input_dim, num_neurons, num_layers):
         super(Lstm, self).__init__()
-        self.hidden = hidden
         self.lstm_layer = nn.LSTM(input_dim, num_neurons, num_layers, dropout=0)
         
     
     def forward(self, x, hidden):
+        print('forward')
         x, hidden = self.lstm_layer(self, x, hidden)
         return x, hidden
 
