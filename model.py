@@ -19,11 +19,17 @@ class Lstm(nn.Module):
     def __init__(self, input_dim, num_neurons, num_layers):
         super(Lstm, self).__init__()
         self.lstm_layer = nn.LSTM(input_dim, num_neurons, num_layers, dropout=0)
-        
+        self.fc = nn.Linear(100, 93)
     
     def forward(self, x, hidden):
-        print('forward')
-        x, hidden = self.lstm_layer(self, x, hidden)
+        is_size_one = (x.shape[0] == 1)
+        
+        x, hidden = self.lstm_layer(x, hidden)
+        x = self.fc(x.squeeze())
+        
+        if is_size_one:
+            return x[None , :], hidden
+        
         return x, hidden
 
 
