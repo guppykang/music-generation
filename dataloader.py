@@ -6,9 +6,12 @@ class MyDataset(object):
     def __init__(self, songs):
         self.songs = np.array(songs)
 
-        self.labels = songs[1:]
-        self.labels = np.argmax(np.array(self.labels), axis = 1)
-
+        self.labels = self.songs[1:]
+        
+#         print(np.argmax(self.songs[-1]))
+#         print(np.argmax(self.labels[-1]))
+        
+        
         
     def __len__(self):
         return math.ceil(len(songs)/100)
@@ -17,6 +20,7 @@ class MyDataset(object):
     def __getitem__(self, index):
         start = 100 * index
         end = start + 100
+        
         
         
         if end > len(self.songs): 
